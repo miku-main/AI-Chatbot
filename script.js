@@ -97,6 +97,6 @@ function getLoadingSvg() {
 function scrollToBottom() {
     content.scrollTo({
         top: content.scrollHeight,
-        behavior: 'smooth'
+        behavior: 'smooth',
     });
 }
