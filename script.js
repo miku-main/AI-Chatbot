@@ -1,5 +1,3 @@
-const API_KEY = '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'
-
 const content = document.getElementById('content')
 const chatInput = document.getElementById('chatInput');
 const sendButton = document.getElementById('sendButton');
