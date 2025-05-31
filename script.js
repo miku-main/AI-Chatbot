@@ -1,4 +1,5 @@
-const content = document.getElementById('content')
+require('dotenv').config();
+const content = document.getElementById('content');
 const chatInput = document.getElementById('chatInput');
 const sendButton = document.getElementById('sendButton');
 
@@ -31,7 +32,7 @@ function getAnswer(question) {
         fetch("https://openrouter.ai/api/v1/chat/completions", {
             method: "POST",
             headers: {
-            "Authorization": `Bearer ${API_KEY}`,
+            "Authorization": `Bearer ${process.env.API_KEY}`,
             "Content-Type": "application/json"
             },
             body: JSON.stringify({
