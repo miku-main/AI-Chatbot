@@ -55,7 +55,7 @@ function getAnswer(question, id) {
         if (answerEl) {
           answerEl.innerText = data.reply;
         }
-    })
+        })
     .catch(err => {
         document.getElementById(`answer-${id}`).innerText = "Error getting response.";
     })
@@ -63,6 +63,38 @@ function getAnswer(question, id) {
         isAnswerLoading = false;
         sendButton.classList.remove('send-button-nonactive');
     });
+}
+
+function addQuestionSection(message) {
+    isAnswerLoading = true;
+    // Create section element
+    const sectionElement = document.createElement('section');
+    sectionElement.className = 'question-section';
+    sectionElement.textContent = message;
+
+    content.appendChild(sectionElement);
+    // Add answer section after added question section
+    addAnswerSection(message)
+    scrollToBottom();
+}
+
+function addAnswerSection(message) {
+    if (isAnswerLoading) {
+        // Increment answer section ID for tracking
+        answerSectionId++;
+        // Create and empty answer section with a loading animation
+        const sectionElement = document.createElement('section');
+        sectionElement.className = 'answer-section';
+        sectionElement.innerHTML = getLoadingSvg();
+        sectionElement.id = answerSectionId;
+
+        content.appendChild(sectionElement);
+        getAnswer(message, answerSectionId);
+    } else {
+        // Fill in the answer once it's received
+        const answerSectionElement = document.getElementById(answerSectionId);
+        answerSectionElement.textContent = message;
+    }
 }
 
 function getLoadingSvg() {
