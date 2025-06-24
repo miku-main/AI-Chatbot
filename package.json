@@ -1,0 +1,24 @@
+{
+  "name": "ai-chatbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miku-main/AI-Chatbot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/miku-main/AI-Chatbot/issues"
+  },
+  "homepage": "https://github.com/miku-main/AI-Chatbot#readme",
+  "dependencies": {
+    "openai": "^5.7.0"
+  }
+}
