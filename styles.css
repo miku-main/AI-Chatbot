@@ -37,7 +37,7 @@ body {
     background: var(--primary-color);
     padding: 1rem;
     text-align: center;
-    columns: white;
+    color: white;
 }
 
 .content {
@@ -49,26 +49,19 @@ body {
     overflow: auto;
 }
 
+.question-section {
+    background: #f1f1f1;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    align-self: flex-end;
+}
+  
 .answer-section {
     background: var(--light-primary-color);
     padding: 0.5rem;
-    border-radius: 0.5rem 0.5rem 0.5rem 0;
-    width: fit-content;
-    display: flex;
-    align-items: center;
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
-}
-
-.question-section {
-    background: var(--primary-color);
-    color: white;
-    padding: 0.5rem;
-    width: fit-content;
-    border-radius: 0.5rem 0.5rem 0rem 0.5rem;
-    margin-left: auto;
-    overflow-wrap: anywhere;
-}
+    border-radius: 0.5rem;
+    align-self: flex-start;
+}  
 
 .chat-form {
     border-top: 1px solid #F2F2F2;
@@ -111,4 +104,9 @@ body {
 
 .send-button:active {
     transform: scale(0.9);
+}
+
+#chatBox {
+    overflow-y: auto;
+    flex-grow: 1;
 }

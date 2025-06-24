@@ -10,52 +10,56 @@ chatInput.addEventListener('keypress', event => {
     if (event.key === 'Enter') {
         handleSendMessage();
     }
-})
+});
 
 function handleSendMessage() {
-    // Get the user input and remove leading space
     const question = chatInput.value.trim();
-
-    // Prevent sending empty message
     if (question === '' || isAnswerLoading) return;
 
-    // Disable UI send button
     sendButton.classList.add('send-button-nonactive');
-
-    addQuestionSection(question)
+    addQuestionSection(question);
     chatInput.value = '';
 }
 
-function getAnswer(question) {
-    const fetchData = 
-        fetch("https://openrouter.ai/api/v1/chat/completions", {
-            method: "POST",
-            headers: {
-            "Authorization": `Bearer ${API_KEY}`,
-            "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-            "model": "deepseek/deepseek-r1-distill-llama-70b:free",
-            "messages": [
-                {
-                "role": "user",
-                "content": question
-                }
-            ]
-            })
-        });
+function addQuestionSection(question) {
+    const questionSection = document.createElement('section');
+    questionSection.classList.add('question-section');
+    questionSection.innerText = question;
+    content.appendChild(questionSection);
 
-    fetchData.then(response => response.json())
-        .then(data => {
-            // Get response message
-            const resultData = data.choices[0].message.content;
-            // Mark as no longer loading
-            isAnswerLoading = false;
-            addAnswerSection(resultData)
-        }).finally(() => {
-            scrollToBottom();
-            sendButton.classList.remove('send-button-nonactive');
-        })
+    addAnswerSection(question);
+}
+
+function addAnswerSection(question) {
+    const answerSection = document.createElement('section');
+    answerSection.classList.add('answer-section');
+    answerSection.id = `answer-${answerSectionId}`;
+    content.appendChild(answerSection);
+
+    isAnswerLoading = true;
+    getAnswer(question, answerSectionId);
+    answerSectionId++;
+}
+
+function getAnswer(question, id) {
+    fetch("/api/chat", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message: question })
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById(`answer-${id}`).innerText = data.reply;
+    })
+    .catch(err => {
+        document.getElementById(`answer-${id}`).innerText = "Error getting response.";
+    })
+    .finally(() => {
+        isAnswerLoading = false;
+        sendButton.classList.remove('send-button-nonactive');
+    });
 }
 
 function addQuestionSection(message) {
