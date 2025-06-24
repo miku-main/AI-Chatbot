@@ -57,7 +57,8 @@ function getAnswer(question, id) {
         }
         })
     .catch(err => {
-        document.getElementById(`answer-${id}`).innerText = "Error getting response.";
+        const errorEl = document.getElementById(`answer-${id}`);
+        if (errorEl) errorEl.innerText = "Error getting response.";
     })
     .finally(() => {
         isAnswerLoading = false;
@@ -86,7 +87,7 @@ function addAnswerSection(message) {
         const sectionElement = document.createElement('section');
         sectionElement.className = 'answer-section';
         sectionElement.innerHTML = getLoadingSvg();
-        sectionElement.id = answerSectionId;
+        sectionElement.id = `answer-${answerSectionId}`;
 
         content.appendChild(sectionElement);
         getAnswer(message, answerSectionId);
