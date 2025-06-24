@@ -51,7 +51,10 @@ function getAnswer(question, id) {
     })
     .then(res => res.json())
     .then(data => {
-        document.getElementById(`answer-${id}`).innerText = data.reply;
+        const answerEl = document.getElementById(`answer-${id}`);
+        if (answerEl) {
+          answerEl.innerText = data.reply;
+        }
     })
     .catch(err => {
         document.getElementById(`answer-${id}`).innerText = "Error getting response.";
@@ -86,7 +89,7 @@ function addAnswerSection(message) {
         sectionElement.id = answerSectionId;
 
         content.appendChild(sectionElement);
-        getAnswer(message);
+        getAnswer(message, answerSectionId);
     } else {
         // Fill in the answer once it's received
         const answerSectionElement = document.getElementById(answerSectionId);
